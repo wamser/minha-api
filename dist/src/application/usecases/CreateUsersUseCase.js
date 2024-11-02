@@ -16,6 +16,7 @@ class CreateUserUseCase {
     }
     execute(user) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.error('variavel user:', user);
             return yield this.userRepository.createUser(user);
         });
     }

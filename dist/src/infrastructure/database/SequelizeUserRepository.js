@@ -11,8 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequelizeUserRepository = void 0;
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize(process.env.DATABASE_URL);
-const UserModel = sequelize.define('User', {
+const sequelize_instance_1 = require("./sequelize-instance");
+const UserModel = sequelize_instance_1.sequelize.define('User', {
     name: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
@@ -29,7 +29,7 @@ const UserModel = sequelize.define('User', {
 class SequelizeUserRepository {
     createUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const createdUser = yield UserModel.create(user);
+            const createdUser = yield UserModel.create({ user });
             return createdUser.toJSON();
         });
     }
