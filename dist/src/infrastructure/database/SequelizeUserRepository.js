@@ -11,34 +11,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequelizeUserRepository = void 0;
 const sequelize_1 = require("sequelize");
-const sequelize_instance_1 = require("./sequelize-instance");
-const UserModel = sequelize_instance_1.sequelize.define('User', {
-    name: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true,
-        },
-    },
+const UserModel_1 = require("./models/UserModel");
+require("dotenv/config");
+const sequelize = new sequelize_1.Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    logging: false,
 });
+(0, UserModel_1.initUserModel)(sequelize);
 class SequelizeUserRepository {
     createUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const createdUser = yield UserModel.create({ user });
-            return createdUser.toJSON();
+            const createdUser = yield UserModel_1.UserModel.create(user);
+            return createdUser;
+        });
+    }
+    listAllUsers() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield UserModel_1.UserModel.findAll();
         });
     }
     findAllUsers() {
         return __awaiter(this, void 0, void 0, function* () {
-            const users = yield UserModel.findAll();
-            return users.map(user => user.toJSON());
+            return yield UserModel_1.UserModel.findAll();
         });
     }
 }
 exports.SequelizeUserRepository = SequelizeUserRepository;
-UserModel.sync();

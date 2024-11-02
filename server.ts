@@ -1,5 +1,5 @@
 import express from 'express';
-import routes from './infrastructure/routes';
+import routes from './src/infrastructure/routes'; //'./infrastructure/routes';
 import { errors } from 'celebrate';
 
 const app = express();

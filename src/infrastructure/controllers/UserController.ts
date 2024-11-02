@@ -11,8 +11,6 @@ export class UserController {
   async createUser(req: Request, res: Response) {
     try {
       const { name, email } = req.body;
-      console.error('variavel name:', name);
-      console.error('variavel email:', email);
       const user = await this.createUserUseCase.execute({ name, email });
       return res.status(201).json(user);
     } catch (error) {
