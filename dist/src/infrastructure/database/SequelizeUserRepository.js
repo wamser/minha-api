@@ -35,5 +35,13 @@ class SequelizeUserRepository {
             return yield UserModel_1.UserModel.findAll();
         });
     }
+    deleteUser(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield UserModel_1.UserModel.destroy({
+                where: { id }
+            });
+            return result > 0; // Retorna true se algum registro foi deletado
+        });
+    }
 }
 exports.SequelizeUserRepository = SequelizeUserRepository;

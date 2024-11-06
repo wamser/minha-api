@@ -4,7 +4,7 @@ import { UserRepository } from '../../application/interfaces/repositories/UserRe
 import 'dotenv/config';
 
 const sequelize = new Sequelize(process.env.DATABASE_URL as string, {
-  dialect: 'postgres', 
+  dialect: 'postgres',
   logging: false,
 });
 
@@ -22,6 +22,14 @@ export class SequelizeUserRepository implements UserRepository {
 
   async findAllUsers() {
     return await UserModel.findAll();
+  }
+
+  async deleteUser(id: number): Promise<boolean> {
+    const result = await UserModel.destroy({
+      where: { id }
+    });
+
+    return result > 0; // Retorna true se algum registro foi deletado
   }
 
 }
